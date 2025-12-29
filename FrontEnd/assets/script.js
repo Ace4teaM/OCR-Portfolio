@@ -29,10 +29,9 @@ function getCategories() {
 function refreshHtmlWorks() {
     console.debug("refreshHtmlWorks");
 
-    // Actualise les projets
+    // Actualise la galerie des projets
     const worksContainer = document.querySelector(".gallery");
     worksContainer.innerHTML = "";
-    console.debug(typeof works);
     works.forEach(work => {
         if (curCategoryFilter && work.category.name !== curCategoryFilter)
             return;
@@ -42,6 +41,18 @@ function refreshHtmlWorks() {
             <figcaption>${work.title}</figcaption>
         `;
         worksContainer.appendChild(figure);
+    });
+
+    // Actualise la galerie des projets
+    const picturesContainer = document.querySelector(".pictures");
+    picturesContainer.innerHTML = "";
+    works.forEach(work => {
+        const figure = document.createElement("figure");
+        figure.innerHTML = `
+            <img src="${work.imageUrl}" alt="${work.title}">
+            <span class="delete-button material-symbols-outlined">delete</span>
+        `;
+        picturesContainer.appendChild(figure);
     });
 
     // Actualise les catégories
