@@ -1,5 +1,6 @@
 var categories = new Set();
 var works = window.localStorage.getItem("works");
+var token = window.localStorage.getItem("token");
 var noCache = false;
 var api = "http://localhost:5678/api";
 var curCategoryFilter = null;
@@ -72,3 +73,77 @@ else {
     works = JSON.parse(works);
     refreshHtmlWorks();
 }
+
+// affichage du login
+const loginLink = document.querySelector("#login-link");
+loginLink.addEventListener("click", async function (event) {
+    document.querySelectorAll("main>section").forEach(function (element) {
+        if (element.id == "login")
+            element.classList.remove("hidden");
+        else
+            element.classList.add("hidden");
+    });
+});
+
+// affichage du contact
+const contactLink = document.querySelector("#contact-link");
+contactLink.addEventListener("click", async function (event) {
+    document.querySelectorAll("main>section").forEach(function (element) {
+        if (element.id == "contact")
+            element.classList.remove("hidden");
+        else
+            element.classList.add("hidden");
+    });
+});
+
+// affichage des projets
+const projetsLink = document.querySelector("#projets-link");
+projetsLink.addEventListener("click", async function (event) {
+    document.querySelectorAll("main>section").forEach(function (element) {
+        if (element.id == "login")
+            element.classList.add("hidden");
+        else
+            element.classList.remove("hidden");
+    });
+});
+
+// formulaire de login
+const loginForm = document.querySelector("#login form");
+loginForm.addEventListener("submit", async function (event) {
+    event.preventDefault(); // Empêche le rechargement de la page
+    // paramètres de la requête
+    const data = {
+        email: event.target.querySelector("[name=email]").value,
+        password: event.target.querySelector("[name=password]").value
+    };
+    // Appel API
+    fetch(api + "/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    }).then(response => {
+        response.json().then(data => {// obtient le corps de la réponse
+            console.debug(data);
+            var message = document.querySelector("#login-message");
+            if (data.message) {
+                switch (data.message) {
+                    case "user not found":
+                        message.innerText = "Utilisateur introuvable";
+                        break;
+                    default:
+                        message.innerText = data.message;
+                        break;
+                }
+            }
+            else if (response.ok && data.token) {
+                window.localStorage.setItem("token", data.token);
+                message.innerText = "";
+                // recharge la page
+                window.location.reload();
+            }
+            else {
+                message.innerText = "Échec de l'authentification";
+            }
+        });
+    });
+});

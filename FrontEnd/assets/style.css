@@ -190,6 +190,10 @@ li:hover {
 	color: #B1663C;
 }
 
+.hidden {
+	display: none !important;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -303,7 +307,6 @@ li:hover {
 #login {
 	width: 50%;
 	margin: auto;
-	/*display: none;*/
 }
 
 #login>* {
@@ -338,6 +341,13 @@ li:hover {
 	margin: 2em 0 1em 0;
 }
 
+
+#login-message {
+	font-weight: 700;
+	color: red;
+	text-align: center;
+	margin: 30px 0 0 0;
+}
 
 
 
