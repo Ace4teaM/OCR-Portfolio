@@ -7,7 +7,6 @@ var curCategoryFilter = null;
 
 // Méthode pour récupérer les travaux depuis l'API
 async function getWorks() {
-    console.debug("getWorks");
     const reponse = await fetch(api + "/works");
     works = await reponse.json();
     // Stockage des informations dans le localStorage
@@ -115,6 +114,10 @@ function refreshHtmlWorks() {
 			<i class="delete-button fa-solid fa-trash-can"></i>
         `;
         picturesContainer.appendChild(figure);
+        // au clic, on supprime le projet
+        figure.querySelector(".delete-button").addEventListener("click", async function (event) {
+            deleteWork(work.id);
+        });
     });
 
     // Obtient les catégories
@@ -143,7 +146,6 @@ function refreshHtmlWorks() {
     // Ajout du choix de la catégorie
     const uploadCombo = document.querySelector("#upload-category-list");
     uploadCombo.innerHTML = "";
-    uploadCombo.appendChild(firstChild);
     categories.forEach(category => {
         const option = document.createElement("option");
         option.value = category;
@@ -238,6 +240,29 @@ loginForm.addEventListener("submit", async function (event) {
         });
     });
 });
+
+// supprime un projet
+function deleteWork(id) {
+    // paramètres de la requête
+    const data = {
+        id: id
+    };
+    // Appel API
+    fetch(api + "/works/" + data.id, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+        body: JSON.stringify(data)
+    }).then(response => {
+        console.debug(response);
+        if (response.ok) {
+            // actualise la page
+            getWorks().then(function () { refreshHtmlWorks(); });
+        }
+        else {
+            message.innerText = "Échec de la requête";
+        }
+    });
+}
 
 
 //****************************************************************** */
