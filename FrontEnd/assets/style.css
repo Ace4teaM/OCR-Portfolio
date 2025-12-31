@@ -190,8 +190,9 @@ li:hover {
 	color: #B1663C;
 }
 
-.hidden {
-	display: none !important;
+a {
+	text-decoration: none;
+	color: inherit;
 }
 
 button {
@@ -211,6 +212,33 @@ button {
 button:hover {
 	background-color: #15473e;
 	border-color: #15473e;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.edit-mode-banner {
+	line-height: 40px;
+	background-color: black;
+	color: white;
+	text-align: center;
+	font-size: 12px;
+}
+
+.edit-mode-banner i {
+	margin-right: 8px;
+}
+
+.edit-mode-projets {
+	color: black;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+.edit-mode-projets i {
+	margin-left: 20px;
+	margin-right: 8px;
 }
 
 #introduction {
@@ -402,7 +430,7 @@ footer nav ul {
 	right: 0;
 	top: 0;
 	bottom: 0;
-	background-color: rgba(0, 0, 0, 0.25);
+	background-color: rgba(0, 0, 0, 0.50);
 	z-index: 5;
 }
 

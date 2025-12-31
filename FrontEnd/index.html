@@ -10,12 +10,17 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+		crossorigin="anonymous" referrerpolicy="no-referrer">
 	<meta name="description" content="">
 	<script src="./assets/script.js" defer></script>
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 
 <body>
+	<div name="edit-mode" class="edit-mode-banner hidden">
+		<i class="fa-regular fa-pen-to-square"></i><span>Mode édition</span>
+	</div>
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
@@ -44,7 +49,11 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<h2>Mes Projets</h2>
+			<h2>Mes Projets
+				<span name="edit-mode" class="edit-mode-projets hidden">
+					<a href="#"><i class="fa-regular fa-pen-to-square"></i><span>modifier</span></a>
+				</span>
+			</h2>
 			<div class="filters">
 				<button>Tous</button>
 			</div>
@@ -78,7 +87,7 @@
 		</section>
 	</main>
 
-	<aside id="gallery-modal" class="modal">
+	<aside id="gallery-modal" class="modal hidden">
 		<div class="modal-content">
 			<span class="close-button material-symbols-outlined">close</span>
 			<h2>Galerie photo</h2>

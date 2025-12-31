@@ -25,6 +25,29 @@ function getCategories() {
     console.debug(categories);
 }
 
+// Evenement pour fermer (cacher) la modale
+const closeButton = document.querySelector(".close-button");
+closeButton.addEventListener("click", async function (event) {
+    var parentModal = event.target.closest(".modal");
+    parentModal.classList.add("hidden");
+});
+
+// Evenement pour afficher la modale 'gallery'
+const projectEditButton = document.querySelector(".edit-mode-projets a");
+projectEditButton.addEventListener("click", async function (event) {
+    var modal = document.querySelector("#gallery-modal");
+    modal.classList.remove("hidden");
+});
+
+// Méthode pour afficher les éléments d'édition
+// tous les éléments d'édition porte le mêmle nom d'attribut "edit-mode"
+function showEditing() {
+    document.getElementsByName("edit-mode").forEach(function (element) {
+        element.classList.remove("hidden");
+    });
+    document.getElementById("login-link").innerText = "logout";
+}
+
 // Méthode pour mettre à jour le contenu de la page
 function refreshHtmlWorks() {
     console.debug("refreshHtmlWorks");
@@ -75,25 +98,30 @@ function refreshHtmlWorks() {
         });
         filtersContainer.appendChild(button);
     });
+
+    // Affiche les éléments d'édition si l'utilisateur est connecté
+    if (token)
+        showEditing();
 }
 
-// Charge les données si besoin et actualise l'affichage
-if (!works || noCache)
-    getWorks().then(function () { refreshHtmlWorks(); });
-else {
-    works = JSON.parse(works);
-    refreshHtmlWorks();
-}
-
-// affichage du login
+// affichage du login / déconnection
 const loginLink = document.querySelector("#login-link");
 loginLink.addEventListener("click", async function (event) {
-    document.querySelectorAll("main>section").forEach(function (element) {
-        if (element.id == "login")
-            element.classList.remove("hidden");
-        else
-            element.classList.add("hidden");
-    });
+    // si l'utilisateur est déjà loggé
+    if (token) {
+        // logout
+        window.localStorage.removeItem("token");
+        window.location.reload();
+    }
+    // sinon affichage du login
+    else {
+        document.querySelectorAll("main>section").forEach(function (element) {
+            if (element.id == "login")
+                element.classList.remove("hidden");
+            else
+                element.classList.add("hidden");
+        });
+    }
 });
 
 // affichage du contact
@@ -158,3 +186,17 @@ loginForm.addEventListener("submit", async function (event) {
         });
     });
 });
+
+
+//****************************************************************** */
+// Programme principal
+//****************************************************************** */
+
+
+// Charge les données si besoin et actualise l'affichage
+if (!works || noCache)
+    getWorks().then(function () { refreshHtmlWorks(); });
+else {
+    works = JSON.parse(works);
+    refreshHtmlWorks();
+}
