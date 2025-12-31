@@ -26,10 +26,32 @@ function getCategories() {
 }
 
 // Evenement pour fermer (cacher) la modale
-const closeButton = document.querySelector(".close-button");
-closeButton.addEventListener("click", async function (event) {
-    var parentModal = event.target.closest(".modal");
-    parentModal.classList.add("hidden");
+const closeButton = document.querySelectorAll(".close-button");
+closeButton.forEach((e) => {
+    e.addEventListener("click", async function (event) {
+        var parentModal = event.target.closest(".modal");
+        parentModal.classList.add("hidden");
+    });
+});
+
+// Evenement pour afficher la page suivante du modal
+const nextButton = document.querySelectorAll(".next-button");
+nextButton.forEach((e) => {
+    e.addEventListener("click", async function (event) {
+        var parentContent = event.target.closest(".modal-content-page");
+        parentContent.classList.add("hidden");
+        parentContent.nextElementSibling.classList.remove("hidden");
+    });
+});
+
+// Evenement pour afficher la page suivante du modal
+const prevButton = document.querySelectorAll(".prev-button");
+prevButton.forEach((e) => {
+    e.addEventListener("click", async function (event) {
+        var parentContent = event.target.closest(".modal-content-page");
+        parentContent.classList.add("hidden");
+        parentContent.previousElementSibling.classList.remove("hidden");
+    });
 });
 
 // Evenement pour afficher la modale 'gallery'
@@ -38,6 +60,7 @@ projectEditButton.addEventListener("click", async function (event) {
     var modal = document.querySelector("#gallery-modal");
     modal.classList.remove("hidden");
 });
+
 
 // Méthode pour afficher les éléments d'édition
 // tous les éléments d'édition porte le mêmle nom d'attribut "edit-mode"
@@ -73,13 +96,15 @@ function refreshHtmlWorks() {
         const figure = document.createElement("figure");
         figure.innerHTML = `
             <img src="${work.imageUrl}" alt="${work.title}">
-            <span class="delete-button material-symbols-outlined">delete</span>
+			<i class="delete-button fa-solid fa-trash-can"></i>
         `;
         picturesContainer.appendChild(figure);
     });
 
-    // Actualise les catégories
+    // Obtient les catégories
     getCategories();
+
+    // Ajout des filtres par catégories
     const filtersContainer = document.querySelector(".filters");
     filtersContainer.innerHTML = "";
     const firstChild = document.createElement("button");
@@ -97,6 +122,17 @@ function refreshHtmlWorks() {
             refreshHtmlWorks();
         });
         filtersContainer.appendChild(button);
+    });
+
+    // Ajout du choix de la catégorie
+    const uploadCombo = document.querySelector("#upload-category-list");
+    uploadCombo.innerHTML = "";
+    uploadCombo.appendChild(firstChild);
+    categories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.innerText = category;
+        uploadCombo.appendChild(option);
     });
 
     // Affiche les éléments d'édition si l'utilisateur est connecté

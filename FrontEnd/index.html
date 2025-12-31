@@ -49,11 +49,10 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<h2>Mes Projets
-				<span name="edit-mode" class="edit-mode-projets hidden">
-					<a href="#"><i class="fa-regular fa-pen-to-square"></i><span>modifier</span></a>
-				</span>
-			</h2>
+			<h2>Mes Projets</h2>
+			<span name="edit-mode" class="edit-mode-projets hidden">
+				<a href="#"><i class="fa-regular fa-pen-to-square"></i><span>modifier</span></a>
+			</span>
 			<div class="filters">
 				<button>Tous</button>
 			</div>
@@ -89,11 +88,39 @@
 
 	<aside id="gallery-modal" class="modal hidden">
 		<div class="modal-content">
-			<span class="close-button material-symbols-outlined">close</span>
-			<h2>Galerie photo</h2>
-			<div class="pictures"></div>
-			<hr />
-			<button>Ajouter une photo</button>
+			<div class="modal-content-page">
+				<i class="close-button fa-solid fa-close"></i>
+				<div class="modal-content-title">Galerie photo</div>
+				<div class="pictures"></div>
+				<div class="modal-content-separator"></div>
+				<div class="modal-content-footer">
+					<button class="next-button">Ajouter une photo</button>
+				</div>
+			</div>
+			<div class="modal-content-page hidden">
+				<i class="prev-button fa-solid fa-arrow-left"></i>
+				<i class="close-button fa-solid fa-close"></i>
+				<div class="modal-content-title">Ajout photo</div>
+				<form action="#" method="post">
+					<div class="upload-file">
+						<i class="upload-icon fa-regular fa-image"></i>
+						<input type="file" name="image" accept="image/png, image/jpeg" placeholder="Fichier"
+							class="hidden" />
+						<button type="button" id="upload-button">+ Ajouter photo</button>
+						<p>jpg, png : 4mo max</p>
+					</div>
+					<p>Titre</p>
+					<input type="text" name="title" />
+					<p>Catégorie</p>
+					<input id="upload-category" type="text" name="category" list="upload-category-list" />
+					<i class="down-button fa-solid fa-chevron-down"></i>
+					<datalist id="upload-category-list"></datalist>
+				</form>
+				<div class="modal-content-separator"></div>
+				<div class="modal-content-footer">
+					<button id="gallery-validate" disabled>Valider</button>
+				</div>
+			</div>
 		</div>
 	</aside>
 
