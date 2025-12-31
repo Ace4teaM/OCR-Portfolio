@@ -258,9 +258,6 @@ function deleteWork(id) {
             // actualise la page
             getWorks().then(function () { refreshHtmlWorks(); });
         }
-        else {
-            message.innerText = "Échec de la requête";
-        }
     });
 }
 
