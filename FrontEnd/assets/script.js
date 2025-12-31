@@ -59,6 +59,11 @@ const projectEditButton = document.querySelector(".edit-mode-projets a");
 projectEditButton.addEventListener("click", async function (event) {
     var modal = document.querySelector("#gallery-modal");
     modal.classList.remove("hidden");
+    // affiche la première page, cache les autres
+    modal.querySelectorAll(".modal-content-page").forEach(function (content) {
+        content.classList.add("hidden");
+    });
+    modal.querySelector(".modal-content-page:first-child").classList.remove("hidden");
 });
 
 // Evenement pour fermer (cacher) la modale
