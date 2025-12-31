@@ -44,7 +44,7 @@ nextButton.forEach((e) => {
     });
 });
 
-// Evenement pour afficher la page suivante du modal
+// Evenement pour afficher la page précédente du modal
 const prevButton = document.querySelectorAll(".prev-button");
 prevButton.forEach((e) => {
     e.addEventListener("click", async function (event) {
@@ -59,6 +59,17 @@ const projectEditButton = document.querySelector(".edit-mode-projets a");
 projectEditButton.addEventListener("click", async function (event) {
     var modal = document.querySelector("#gallery-modal");
     modal.classList.remove("hidden");
+});
+
+// Evenement pour fermer (cacher) la modale
+const modalClick = document.querySelectorAll(".modal");
+modalClick.forEach((e) => {
+    e.addEventListener("click", async function (event) {
+        // s'assure que l'item cliqué n'est pas un enfant du modal
+        if (event.target !== e)
+            return;
+        event.target.classList.add("hidden");
+    });
 });
 
 
