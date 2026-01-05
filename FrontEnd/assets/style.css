@@ -397,6 +397,7 @@ button[disabled] {
 
 
 #login-message {
+	font-size: 20px;
 	font-weight: 700;
 	color: red;
 	text-align: center;
@@ -447,21 +448,35 @@ footer nav ul {
 	flex-direction: column;
 	justify-content: start;
 	align-items: center;
-	min-width: 400px;
-	max-width: calc(100vw - 30%);
-	max-height: calc(100vh - 30%);
+	width: 630px;
+	height: 670px;
 	border-radius: 10px;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25);
 	padding: 80px;
 	background-color: white;
 	z-index: 10;
+}
+
+.modal-content-page {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	background-color: white;
+	z-index: 10;
 	box-sizing: border-box;
+	/*
+	 prend la totalité de la place disponible
+	 permet aux enfants d’utiliser flex pour s’étirer
+	 */
+	width: 100%;
+	height: 100%;
 }
 
 .modal-content-separator {
 	width: 100%;
 	height: 1px;
-	margin: 40px 0 40px 0;
+	margin: 0px 0 40px 0;
 	border-top: 2px solid #BBBBBB;
 }
 
@@ -476,31 +491,77 @@ footer nav ul {
 	text-align: center;
 }
 
-.modal-content-page form {
-	min-width: 600px;
-	min-height: 400px;
+.pictures {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	/* ajuste la hauteur des lignes à son contenu*/
+	grid-auto-rows: min-content;
+	grid-column-gap: 16px;
+	grid-row-gap: 16px;
+	margin-top: 16px;
+	margin-bottom: 16px;
+	/*autorise le redimensionnement de la hauteur*/
+	min-height: 0;
+	/* prend la hauteur disponible dans le conteneur */
+	flex-grow: 1;
+	/* active le scroll si le contenu dépasse */
+	overflow: auto;
 }
 
-.modal-content-page form>p {
+.pictures img {
+	width: 100%;
+}
+
+.pictures figure {
+	position: relative;
+}
+
+.pictures figure:hover .delete-button {
+	display: block;
+}
+
+#upload-form {
+	/*
+	rend le formulaire 'transparent' dans la mise en page
+	ses enfants se comportent comme s’ils étaient des enfants directs du parent au-dessus (modal-content-page)
+	ceci permet d’utiliser flex sur les enfants tout en gardant la sémantique du formulaire
+	*/
+	display: contents;
+}
+
+#upload-form>p {
 	font-family: Work Sans;
 	font-size: 18px;
 	margin: 30px 0 10px 0;
 	color: #444444;
+	align-self: flex-start;
 }
 
-.modal-content-page form>input,
-.modal-content-page form>select {
+#upload-form input,
+#upload-form select {
 	width: 100%;
 	height: 70px;
 	font-size: 16px;
 	padding-left: 10px;
-	padding-right: 10px;
 	border: none;
 	background-color: white;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	box-sizing: border-box;
 }
 
+#upload-form select {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+
+	background-image: url("icons/arrow-down.png");
+	background-repeat: no-repeat;
+	background-position: right 30px center;
+	background-size: 16px;
+
+	padding-right: 40px;
+}
 
 #upload-button {
 	font-family: 'Syne';
@@ -521,27 +582,50 @@ footer nav ul {
 }
 
 
-.upload-file {
+#upload-file {
 	background-color: #E8F1F6;
 	border-radius: 5px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	height: 200px;
 	padding: 20px;
-	cursor: pointer;
+	width: 100%;
+	box-sizing: border-box;
+	/* prend la hauteur disponible dans le conteneur */
+	flex-grow: 1;
+	/* rétrécit si nécessaire */
+	flex-shrink: 1;
 }
 
-.upload-icon {
+#upload-icon {
 	font-size: 90px;
 	color: #BBBBBB;
 }
 
-.upload-file input[type="file"] {
+#upload-preview {
+	background-color: #E8F1F6;
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	/* prend toute la hauteur dans les 200px max */
+	align-items: stretch;
+	padding: 20px;
+	height: 200px;
+}
+
+#upload-file input[type="file"] {
 	cursor: pointer;
 	background-color: white;
 	content: "";
+}
+
+#upload-message {
+	font-size: 20px;
+	font-weight: 700;
+	color: red;
+	text-align: center;
+	margin: 30px 0 0 0;
 }
 
 .down-button {
@@ -550,25 +634,6 @@ footer nav ul {
 	top: -43px;
 	left: calc(100% - 50px);
 	pointer-events: none;
-}
-
-.pictures {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	grid-column-gap: 16px;
-	grid-row-gap: 16px;
-	margin-top: 16px;
-	margin-bottom: 16px;
-	overflow: scroll;
-}
-
-.pictures img {
-	width: 100%;
-}
-
-.pictures figure {
-	position: relative;
 }
 
 .delete-button {
@@ -583,10 +648,6 @@ footer nav ul {
 	color: white;
 	border-radius: 3px;
 	font-size: 20px;
-}
-
-.pictures figure:hover .delete-button {
-	display: block;
 }
 
 .close-button {

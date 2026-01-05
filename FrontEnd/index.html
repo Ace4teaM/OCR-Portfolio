@@ -17,7 +17,7 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 
-<body>
+<body onload="init()">
 	<div name="edit-mode" class="edit-mode-banner hidden">
 		<i class="fa-regular fa-pen-to-square"></i><span>Mode édition</span>
 	</div>
@@ -88,7 +88,7 @@
 
 	<aside id="gallery-modal" class="modal hidden">
 		<div class="modal-content">
-			<div class="modal-content-page">
+			<div class="modal-content-page" name="galery">
 				<i class="close-button fa-solid fa-close"></i>
 				<div class="modal-content-title">Galerie photo</div>
 				<div class="pictures"></div>
@@ -97,28 +97,30 @@
 					<button class="next-button">Ajouter une photo</button>
 				</div>
 			</div>
-			<div class="modal-content-page hidden">
+			<div class="modal-content-page hidden" name="upload">
 				<i class="prev-button fa-solid fa-arrow-left"></i>
 				<i class="close-button fa-solid fa-close"></i>
 				<div class="modal-content-title">Ajout photo</div>
-				<form action="#" method="post">
-					<div class="upload-file">
-						<i class="upload-icon fa-regular fa-image"></i>
-						<input type="file" name="image" accept="image/png, image/jpeg" placeholder="Fichier"
-							class="hidden" />
+				<form id="upload-form" action="#" method="post">
+					<div id="upload-file">
+						<i id="upload-icon" class="fa-regular fa-image"></i>
+						<input id="upload-input" type="file" name="image" accept="image/png, image/jpeg"
+							placeholder="Fichier" class="hidden" />
 						<button type="button" id="upload-button">+ Ajouter photo</button>
 						<p>jpg, png : 4mo max</p>
 					</div>
+					<div id="upload-preview" class="hidden">
+						<img id="upload-image" alt="Aperçu de l'image sélectionnée" />
+					</div>
 					<p>Titre</p>
-					<input type="text" name="title" />
+					<input id="upload-title" type="text" name="title" />
 					<p>Catégorie</p>
-					<input id="upload-category" type="text" name="category" list="upload-category-list" />
-					<i class="down-button fa-solid fa-chevron-down"></i>
-					<datalist id="upload-category-list"></datalist>
+					<select id="upload-category-list" name="category"></select>
 				</form>
+				<p id="upload-message"></p>
 				<div class="modal-content-separator"></div>
 				<div class="modal-content-footer">
-					<button id="gallery-validate" disabled>Valider</button>
+					<button id="gallery-validate">Valider</button>
 				</div>
 			</div>
 		</div>
