@@ -159,8 +159,13 @@ function refreshHtmlWorks() {
             curCategoryFilter = category;
             refreshHtmlWorks();
         });
+        if (curCategoryFilter && curCategoryFilter.name === category.name)
+            button.classList.add("active");
         filtersContainer.appendChild(button);
     });
+
+    if (curCategoryFilter === null)
+        firstChild.classList.add("active");
 
     // Ajout du choix de la catégorie
     const uploadCombo = document.querySelector("#upload-category-list");

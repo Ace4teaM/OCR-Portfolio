@@ -320,8 +320,14 @@ button[disabled] {
 	background-color: #1D6154;
 }
 
+.filters button.active {
+	color: white;
+	border-color: #1D6154;
+	background-color: #1D6154;
+}
+
 #contact {
-	width: 50%;
+	width: 40%;
 	margin: auto;
 }
 
@@ -359,7 +365,7 @@ button[disabled] {
 
 
 #login {
-	width: 50%;
+	width: 40%;
 	margin: auto;
 }
 
