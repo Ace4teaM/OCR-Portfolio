@@ -1,5 +1,5 @@
 let categories = [];
-let works = window.localStorage.getItem("works");
+let works = null;
 let token = window.localStorage.getItem("token");
 const noCache = false;
 const api = "http://localhost:5678/api";
@@ -9,8 +9,6 @@ let curCategoryFilter = null;
 async function getWorks() {
     const reponse = await fetch(api + "/works");
     works = await reponse.json();
-    // Stockage des informations dans le localStorage
-    window.localStorage.setItem("works", JSON.stringify(works));
 }
 
 // Méthode pour obtenir les catégories
@@ -372,22 +370,16 @@ document.querySelector("#upload-button").addEventListener("click", async functio
     });
 });
 
+// Recharge les données et actualise dynamiquement le contenu de la page
+async function refreshContent() {
+    await getWorks().then(function () { refreshHtmlWorks(); });
+}
 
 //****************************************************************** */
 // Programme principal
 //****************************************************************** */
 
 function init() {
-    // Charge les données si besoin et actualise l'affichage
-    if (!works || noCache)
-        getWorks().then(function () { refreshHtmlWorks(); });
-    else {
-        works = JSON.parse(works);
-        refreshHtmlWorks();
-    }
-}
-
-
-async function refreshContent() {
-    await getWorks().then(function () { refreshHtmlWorks(); });
+    // Charge les données
+    refreshContent();
 }
